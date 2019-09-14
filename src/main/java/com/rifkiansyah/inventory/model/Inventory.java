@@ -18,12 +18,12 @@ public class Inventory {
     private String itemname;
 
     @Column (name = "quantity")
-    private String quantity;
+    private Long quantity;
 
     public Inventory() {
     }
 
-    public Inventory(String username, String itemname, String quantity) {
+    public Inventory(String username, String itemname, Long quantity) {
         this.username = username;
         this.itemname = itemname;
         this.quantity = quantity;
@@ -53,11 +53,11 @@ public class Inventory {
         this.itemname = itemname;
     }
 
-    public String getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 }

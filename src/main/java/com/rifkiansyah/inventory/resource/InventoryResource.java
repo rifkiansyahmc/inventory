@@ -2,10 +2,7 @@ package com.rifkiansyah.inventory.resource;
 
 import com.rifkiansyah.inventory.model.Inventory;
 import com.rifkiansyah.inventory.repository.InventoryRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,14 +13,37 @@ public class InventoryResource {
 
     private InventoryRepository inventoryRepository;
 
+    public InventoryResource(InventoryRepository inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
+    }
+
     @GetMapping("/{username}")
     public List<String> getInventory(@PathVariable("username")
-                                     final String username){
+                                     String username){
 
-        inventoryRepository.findByUsername(username)
+        return inventoryRepository.findByUsername(username)
         .stream()
         .map(Inventory::getItemname)
         .collect(Collectors.toList());
-        return null;
+    }
+
+    @PostMapping("/add")
+    public List<String> addInventory(@RequestBody Inventory inventory){
+
+        Inventory temp = new Inventory();
+        temp.setItemname(inventory.getItemname());
+        temp.setQuantity(inventory.getQuantity());
+        temp.setUsername(inventory.getUsername());
+
+        inventoryRepository.save(temp);
+        return getInventory(inventory.getUsername());
+    }
+
+    @PostMapping("/delete/{username}")
+    public boolean deleteUser(@PathVariable("username") String username){
+        List<Inventory> inventory = inventoryRepository.findByUsername(username);
+        inventoryRepository.delete((Inventory) inventory);
+
+        return true;
     }
 }
