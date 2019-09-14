@@ -27,6 +27,7 @@ public class InventoryResource {
         .collect(Collectors.toList());
     }
 
+
     @PostMapping("/add")
     public List<String> addInventory(@RequestBody Inventory inventory){
 
@@ -46,4 +47,9 @@ public class InventoryResource {
 
         return true;
     }
+
+    /*@PostMapping("/update")
+    public List<String> updateInventory(){
+
+    }*/
 }
