@@ -12,4 +12,6 @@ public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
     List<Inventory> findByItemcode(Long itemcode);
 
     Inventory findOneByItemcode(Long itemcode);
+
+    Inventory findOneById(Integer id);
 }
