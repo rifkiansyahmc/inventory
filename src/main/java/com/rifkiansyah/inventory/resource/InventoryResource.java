@@ -42,7 +42,7 @@ public class InventoryResource {
         return inventoryRepository.findOneByItemcode(itemcode);
     }
 
-    @PostMapping("/update-quantity")
+    @PutMapping("/update-quantity")
     public Inventory updateItemQuantity(Inventory inventory, Long itemcode){
         log.debug("Request to update quantity : {}", inventory);
         Inventory current = inventoryRepository.findOneByItemcode(itemcode);
@@ -99,7 +99,7 @@ public class InventoryResource {
                 });
     }*/
 
-    @PostMapping("/delete/{username}")
+    @DeleteMapping("/delete/{username}")
     public boolean deleteUser(@PathVariable("username") Long username){
         log.debug("Request to delete all data from user : {}", username);
         List<Inventory> inventory = inventoryRepository.findByUsername(username);
@@ -108,7 +108,7 @@ public class InventoryResource {
         return true;
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void updateInventory(@PathVariable("id") Integer id,
                                 @RequestParam( value = "itemcode",       required = false) Long itemcode,
                                 @RequestParam( value = "idSupplier",   required = false) Long idSupplier,
